@@ -1,51 +1,57 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace test2WatchController
+namespace WatchToPCVolumeController
 {
     public partial class Form1 : Form
     {
-        private UdpClient client;
+        private const string VolumeUp = "nircmd.exe changesysvolume 1000";
+        private const string VolumeDown = "nircmd.exe changesysvolume -1000";
+        private const string Mute = "nircmd.exe mutesysvolume 1";
+        private const string NoMute = "nircmd.exe mutesysvolume 0";
+        
+        private readonly UdpClient _client;
+        
         public Form1()
         {
             WindowState = FormWindowState.Minimized;
             ShowInTaskbar = false;
             InitializeComponent();
 
-            client = new UdpClient(9090);
+            _client = new UdpClient(9090);
             
             StartListening();
         }
 
         private void StartListening()
         {
-            client.BeginReceive(ReceivedData, client);
+            _client.BeginReceive(ReceivedData, _client);
         }
         
         private void ReceivedData(IAsyncResult asyncResult)
         {
             IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse("172.30.1.97"), 9090);
-            byte[] received = client.EndReceive(asyncResult, ref ipEndPoint);
+            byte[] received = _client.EndReceive(asyncResult, ref ipEndPoint);
             
             string index = Encoding.UTF8.GetString(received, 0, received.Length);
             
             switch (index)
             {
                 case "0":
-                    ExecuteCmd("nircmd.exe changesysvolume 2000");
+                    ExecuteCmd(VolumeUp);
                     break;
                 case "1":
-                    ExecuteCmd("nircmd.exe changesysvolume -2000");
+                    ExecuteCmd(VolumeDown);
+                    break;
+                case "2":
+                    ExecuteCmd(Mute);
+                    break;
+                case "3":
+                    ExecuteCmd(NoMute);
                     break;
             }
 
@@ -53,31 +59,31 @@ namespace test2WatchController
         }
 
         /// <summary>
-        /// textKey : 실행할 명령어 
+        /// 인자로 들어온 명령어를 CMD에 명령합니다.
         /// </summary>
         /// <param name="textKey"></param>
         /// <returns></returns>
         private static void ExecuteCmd(string textKey)
         {
-            ProcessStartInfo pri = new ProcessStartInfo();
-            Process pro = new Process();
+            ProcessStartInfo proStartInfo = new ProcessStartInfo();
+            Process process = new Process();
 
-            pri.FileName = @"cmd.exe";
-            pri.CreateNoWindow = true;
-            pri.UseShellExecute = false;
+            proStartInfo.FileName = @"cmd.exe";
+            proStartInfo.CreateNoWindow = true;
+            proStartInfo.UseShellExecute = false;
 
-            pri.RedirectStandardInput = true; //표준 출력을 리다이렉트
-            pri.RedirectStandardOutput = true;
-            pri.RedirectStandardError = true;
+            proStartInfo.RedirectStandardInput = true; //표준 출력을 리다이렉트
+            proStartInfo.RedirectStandardOutput = true;
+            proStartInfo.RedirectStandardError = true;
 
-            pro.StartInfo = pri;
-            pro.Start(); //어플리케이션 실
+            process.StartInfo = proStartInfo;
+            process.Start(); //어플리케이션 실행
 
-            pro.StandardInput.Write(textKey + Environment.NewLine);
-            pro.StandardInput.Close();
+            process.StandardInput.Write(textKey + Environment.NewLine);
+            process.StandardInput.Close();
 
-            pro.WaitForExit();
-            pro.Close();
+            process.WaitForExit();
+            process.Close();
         }
 
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -95,6 +101,5 @@ namespace test2WatchController
                 WatchVolumeController.Visible = true;
             }
         }
-        
     }
 }
