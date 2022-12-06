@@ -34,7 +34,11 @@ namespace WatchToPCVolumeController
         
         private void ReceivedData(IAsyncResult asyncResult)
         {
+<<<<<<< HEAD
+            IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Any, 9090);
+=======
             IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse("172.30.1.97"), 9090);
+>>>>>>> main
             byte[] received = _client.EndReceive(asyncResult, ref ipEndPoint);
             
             string index = Encoding.UTF8.GetString(received, 0, received.Length);
