@@ -7,7 +7,7 @@
         <ProjectGuid>{4509970F-7656-4416-B993-BE6715CA23A0}</ProjectGuid>
         <OutputType>WinExe</OutputType>
         <RootNamespace>test2WatchController</RootNamespace>
-        <AssemblyName>test2WatchController</AssemblyName>
+        <AssemblyName>WatchToPCVolumeContoller</AssemblyName>
         <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
         <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
