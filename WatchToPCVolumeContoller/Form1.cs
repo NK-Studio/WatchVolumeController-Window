@@ -38,7 +38,13 @@ namespace WatchToPCVolumeController
 
         private void ReceivedData(IAsyncResult asyncResult)
         {
+<<<<<<< HEAD
             IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(GetLocalIPAddress()), _port);
+=======
+
+            IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse("IPv4 주소를 입력하세요."), 9090);
+
+>>>>>>> main
             byte[] received = _client.EndReceive(asyncResult, ref ipEndPoint);
 
             string index = Encoding.UTF8.GetString(received, 0, received.Length);
