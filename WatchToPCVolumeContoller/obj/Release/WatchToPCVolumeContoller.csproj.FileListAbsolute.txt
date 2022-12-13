@@ -3,16 +3,9 @@ C:\Users\bnm00\Desktop\WatchVolumeController-Window\WatchToPCVolumeContoller\bin
 C:\Users\bnm00\Desktop\WatchVolumeController-Window\WatchToPCVolumeContoller\bin\Release\WatchToPCVolumeContoller.pdb
 C:\Users\bnm00\Desktop\WatchVolumeController-Window\WatchToPCVolumeContoller\obj\Release\WatchToPCVolumeContoller.csproj.AssemblyReference.cache
 C:\Users\bnm00\Desktop\WatchVolumeController-Window\WatchToPCVolumeContoller\obj\Release\WatchToPCVolumeContoller.csproj.SuggestedBindingRedirects.cache
-<<<<<<< HEAD
 C:\Users\bnm00\Desktop\WatchVolumeController-Window\WatchToPCVolumeContoller\obj\Release\WatchToPCVolumeController.Form1.resources
-=======
->>>>>>> main
 C:\Users\bnm00\Desktop\WatchVolumeController-Window\WatchToPCVolumeContoller\obj\Release\test2WatchController.Properties.Resources.resources
 C:\Users\bnm00\Desktop\WatchVolumeController-Window\WatchToPCVolumeContoller\obj\Release\WatchToPCVolumeContoller.csproj.GenerateResource.cache
 C:\Users\bnm00\Desktop\WatchVolumeController-Window\WatchToPCVolumeContoller\obj\Release\WatchToPCVolumeContoller.csproj.CoreCompileInputs.cache
 C:\Users\bnm00\Desktop\WatchVolumeController-Window\WatchToPCVolumeContoller\obj\Release\WatchToPCVolumeContoller.exe
 C:\Users\bnm00\Desktop\WatchVolumeController-Window\WatchToPCVolumeContoller\obj\Release\WatchToPCVolumeContoller.pdb
-<<<<<<< HEAD
-=======
-C:\Users\bnm00\Desktop\WatchVolumeController-Window\WatchToPCVolumeContoller\obj\Release\WatchToPCVolumeController.Form1.resources
->>>>>>> main

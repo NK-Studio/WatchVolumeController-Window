@@ -13,8 +13,9 @@ namespace WatchToPCVolumeController
         private const string VolumeDown = "nircmd.exe changesysvolume -1000";
         private const string Mute = "nircmd.exe mutesysvolume 1";
         private const string NoMute = "nircmd.exe mutesysvolume 0";
-        
+
         private readonly UdpClient _client;
+        private const int _port = 9090;
         
         public Form1()
         {
@@ -22,27 +23,26 @@ namespace WatchToPCVolumeController
             ShowInTaskbar = false;
             InitializeComponent();
 
-            _client = new UdpClient(9090);
-            
+            _client = new UdpClient(_port);
+
             StartListening();
+
+            ipv4TextBox.Text = GetLocalIPAddress();
+            portTextBox.Text = _port.ToString();
         }
 
         private void StartListening()
         {
             _client.BeginReceive(ReceivedData, _client);
         }
-        
+
         private void ReceivedData(IAsyncResult asyncResult)
         {
-<<<<<<< HEAD
-            IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Any, 9090);
-=======
-            IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse("172.30.1.97"), 9090);
->>>>>>> main
+            IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(GetLocalIPAddress()), _port);
             byte[] received = _client.EndReceive(asyncResult, ref ipEndPoint);
-            
+
             string index = Encoding.UTF8.GetString(received, 0, received.Length);
-            
+
             switch (index)
             {
                 case "0":
@@ -104,6 +104,20 @@ namespace WatchToPCVolumeController
                 Hide();
                 WatchVolumeController.Visible = true;
             }
+        }
+
+        public static string GetLocalIPAddress()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+
+            throw new Exception("No network adapters with an IPv4 address in the system!");
         }
     }
 }
