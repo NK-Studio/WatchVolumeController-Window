@@ -66,6 +66,7 @@
             this.ipv4TextBox.TabIndex = 1;
             this.ipv4TextBox.Text = "label2";
             this.ipv4TextBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ipv4TextBox.Click += new System.EventHandler(this.ipv4TextBox_Click);
             // 
             // portTextBox
             // 

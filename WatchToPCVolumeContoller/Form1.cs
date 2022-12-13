@@ -16,7 +16,7 @@ namespace WatchToPCVolumeController
 
         private readonly UdpClient _client;
         private const int _port = 9090;
-        
+
         public Form1()
         {
             WindowState = FormWindowState.Minimized;
@@ -38,13 +38,8 @@ namespace WatchToPCVolumeController
 
         private void ReceivedData(IAsyncResult asyncResult)
         {
-<<<<<<< HEAD
             IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(GetLocalIPAddress()), _port);
-=======
 
-            IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse("IPv4 주소를 입력하세요."), 9090);
-
->>>>>>> main
             byte[] received = _client.EndReceive(asyncResult, ref ipEndPoint);
 
             string index = Encoding.UTF8.GetString(received, 0, received.Length);
@@ -124,6 +119,14 @@ namespace WatchToPCVolumeController
             }
 
             throw new Exception("No network adapters with an IPv4 address in the system!");
+        }
+
+        private void ipv4TextBox_Click(object sender, EventArgs e)
+        {
+            string ipAddress = GetLocalIPAddress();
+
+            // 클립보드에 text 저장하기
+            Clipboard.SetText(ipAddress);
         }
     }
 }
