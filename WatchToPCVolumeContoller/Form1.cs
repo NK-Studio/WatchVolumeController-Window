@@ -9,8 +9,8 @@ namespace WatchToPCVolumeController
 {
     public partial class Form1 : Form
     {
-        private const string VolumeUp = "nircmd.exe changesysvolume 1000";
-        private const string VolumeDown = "nircmd.exe changesysvolume -1000";
+        private const string VolumeUp = "nircmd.exe changesysvolume 3000";
+        private const string VolumeDown = "nircmd.exe changesysvolume -3000";
         private const string Mute = "nircmd.exe mutesysvolume 1";
         private const string NoMute = "nircmd.exe mutesysvolume 0";
 
@@ -91,6 +91,30 @@ namespace WatchToPCVolumeController
             process.Close();
         }
 
+        // private ContextMenu SetContextMenu(NotifyIcon ni)
+        // {
+        //     // ContextMenu 생성합니다.
+        //     ContextMenu menu = new ContextMenu();
+        //
+        //     // 첫번째 메뉴 "열기" MenuItem을 생성합니다.
+        //     MenuItem item1 = new MenuItem();
+        //
+        //     // 메뉴의 Text는 "열기"로 지정합니다.
+        //     item1.Text = "열기";
+        //
+        //     // "열기" 메뉴의 클릭이벤트를 설정합니다.
+        //     item1.Click += delegate (object click, EventArgs eventArgs)
+        //     {
+        //         this.Show();
+        //         this.WindowState = WindowState.Normal;
+        //     };
+        //
+        //     // "열기" 메뉴를 ContextMenu에 추가합니다.
+        //     menu.MenuItems.Add(item1);
+        //     
+        //     return menu;
+        // }
+        
         private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             Show();
@@ -127,6 +151,18 @@ namespace WatchToPCVolumeController
 
             // 클립보드에 text 저장하기
             Clipboard.SetText(ipAddress);
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Show();
+            WindowState = FormWindowState.Normal;
+            WatchVolumeController.Visible = false;
+        }
+
+        private void 닥기ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

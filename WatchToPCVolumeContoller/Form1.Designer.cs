@@ -32,17 +32,42 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.WatchVolumeController = new System.Windows.Forms.NotifyIcon(this.components);
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.닥기ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.ipv4TextBox = new System.Windows.Forms.Label();
             this.portTextBox = new System.Windows.Forms.Label();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // WatchVolumeController
             // 
+            this.WatchVolumeController.ContextMenuStrip = this.contextMenuStrip1;
             this.WatchVolumeController.Icon = ((System.Drawing.Icon)(resources.GetObject("WatchVolumeController.Icon")));
             this.WatchVolumeController.Text = "WatchVolumeController";
             this.WatchVolumeController.Visible = true;
             this.WatchVolumeController.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.toolStripMenuItem1, this.닥기ToolStripMenuItem });
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 98);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(152, 36);
+            this.toolStripMenuItem1.Text = "열기";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
+            // 닥기ToolStripMenuItem
+            // 
+            this.닥기ToolStripMenuItem.Name = "닥기ToolStripMenuItem";
+            this.닥기ToolStripMenuItem.Size = new System.Drawing.Size(152, 36);
+            this.닥기ToolStripMenuItem.Text = "닫기";
+            this.닥기ToolStripMenuItem.Click += new System.EventHandler(this.닥기ToolStripMenuItem_Click);
             // 
             // label1
             // 
@@ -93,8 +118,15 @@
             this.Text = "WatchVolumeController";
             this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
             this.Resize += new System.EventHandler(this.Form1_Resize);
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.ToolStripMenuItem 닥기ToolStripMenuItem;
+
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
 
         private System.Windows.Forms.Label portTextBox;
 
