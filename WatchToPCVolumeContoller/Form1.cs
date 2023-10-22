@@ -9,17 +9,13 @@ namespace WatchToPCVolumeController
 {
     public partial class Form1 : Form
     {
-        private const string VolumeUp = "nircmd.exe changesysvolume 3000";
-        private const string VolumeDown = "nircmd.exe changesysvolume -3000";
-        private const string Mute = "nircmd.exe mutesysvolume 1";
-        private const string NoMute = "nircmd.exe mutesysvolume 0";
-
+        
         private readonly UdpClient _client;
         private const int _port = 9090;
 
         public Form1()
         {
-            WindowState = FormWindowState.Minimized;
+            //WindowState = FormWindowState.Minimized;
             ShowInTaskbar = false;
             InitializeComponent();
 
@@ -38,7 +34,7 @@ namespace WatchToPCVolumeController
 
         private void ReceivedData(IAsyncResult asyncResult)
         {
-            IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse(GetLocalIPAddress()), _port);
+            IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Any, _port);
 
             byte[] received = _client.EndReceive(asyncResult, ref ipEndPoint);
 
@@ -47,50 +43,29 @@ namespace WatchToPCVolumeController
             switch (index)
             {
                 case "0":
-                    ExecuteCmd(VolumeUp);
+                    ControlVolume(0.05f);
                     break;
                 case "1":
-                    ExecuteCmd(VolumeDown);
+                    ControlVolume(-0.05f);
                     break;
                 case "2":
-                    ExecuteCmd(Mute);
+                    Audio.Mute = true;
                     break;
                 case "3":
-                    ExecuteCmd(NoMute);
+                    Audio.Mute = false;
                     break;
             }
 
             StartListening();
         }
 
-        /// <summary>
-        /// 인자로 들어온 명령어를 CMD에 명령합니다.
-        /// </summary>
-        /// <param name="textKey"></param>
-        /// <returns></returns>
-        private static void ExecuteCmd(string textKey)
+        private void ControlVolume(float value)
         {
-            ProcessStartInfo proStartInfo = new ProcessStartInfo();
-            Process process = new Process();
-
-            proStartInfo.FileName = @"cmd.exe";
-            proStartInfo.CreateNoWindow = true;
-            proStartInfo.UseShellExecute = false;
-
-            proStartInfo.RedirectStandardInput = true; //표준 출력을 리다이렉트
-            proStartInfo.RedirectStandardOutput = true;
-            proStartInfo.RedirectStandardError = true;
-
-            process.StartInfo = proStartInfo;
-            process.Start(); //어플리케이션 실행
-
-            process.StandardInput.Write(textKey + Environment.NewLine);
-            process.StandardInput.Close();
-
-            process.WaitForExit();
-            process.Close();
+            var currentVolume = Audio.Volume;
+            currentVolume += value;
+            Audio.Volume = currentVolume.Clamp(0, 1);
         }
-
+        
         // private ContextMenu SetContextMenu(NotifyIcon ni)
         // {
         //     // ContextMenu 생성합니다.
